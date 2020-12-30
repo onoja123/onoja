@@ -275,17 +275,41 @@
 
                 <div class="col-sm-9">
                     <div class="contact_form animated animated_scroll fadeInUp" style="animation-delay: 0.4s">
-                        <form action="https://codemon.herokuapp.com/send.php" method="post">
-                            <input placeholder="Name" name="name" type="text" class="form-control">
-                            <input placeholder="E-mail" name="email" type="email" class="form-control">
-                            <textarea placeholder="Message" name="message" class="form-control"></textarea>
-                            <div class="submit btn">send message</div>
-                            <!--Contact form message-->
-                            <div class="msg_success">
-                                <p>Your message has been sent. Thank you!</p>
-                            </div>
-                            <div class="msg_error">
-                                <p>Sorry your message can not be sent.</p>
+                       <form name="contact" method="POST" data-netlify="true">
+  <p>
+    <label>Your Name: <input type="text" name="name" /></label>   
+  </p>
+  <p>
+    <label>Your Email: <input type="email" name="email" /></label>
+  </p>
+  <p>
+    <label>Your Role: <select name="role[]" multiple>
+      <option value="leader">Leader</option>
+      <option value="follower">Follower</option>
+    </select></label>
+  </p>
+  <p>
+    <label>Message: <textarea name="message"></textarea></label>
+  </p>
+  <p>
+    <button type="submit">Send</button>
+  </p>
+</form>
+      <script>
+          document.querySelector("form").addEventListener("submit", handleSubmit);
+
+const handleSubmit = (e) => {
+  e.preventDefault()
+  let myForm = document.getElementById('pizzaOrder');
+  let formData = new FormData(myForm)
+  fetch('/', {
+    method: 'POST',
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(formData).toString()
+  }).then(() => console.log('Form successfully submitted')).catch((error) =>
+    alert(error))
+}
+                        </script>
                             </div>
                             <!--End contact form message-->
                         </form>
